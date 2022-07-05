@@ -5,6 +5,13 @@ from typing import List
 class Racer:
 
     def __init__(self, y_position: float, color: str) -> None:
+        """Constructor of the Racer class
+
+        Args:
+            y_position (float): Initial position
+            color (str): Color of the racer
+        """
+
         self._victories = 0
         self._color = color
         self._racer = turtle.Turtle('turtle')
@@ -16,20 +23,30 @@ class Racer:
 
     @property
     def racer(self) -> turtle.Turtle:
+        """Get the racer"""
+
         return self._racer
 
     @property
     def victories(self) -> int:
+        """Get the number of victories of the racer"""
+
         return self._victories
 
     @property
     def color(self) -> str:
+        """Get the color of the racer"""
+
         return self._color
 
     def reposition_racer(self, new_pos: float) -> None:
+        """Change the position of the racer"""
+
         self._racer.goto(x=-350, y=new_pos)
 
     def add_victory(self) -> None:
+        """Add a new victory for the racer"""
+
         self._victories += 1
 
 
