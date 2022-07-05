@@ -8,8 +8,18 @@ RACER = TypeVar('RACER')
 
 class Game:
 
+    """Class that represents the game"""
+
     def start(self, all_racers: List[RACER], user: PLAYER) -> str:
-        """Start the race"""
+        """Start a new game
+
+        Args:
+            all_racers (List[RACER]): List of racers present in the race
+            user (PLAYER): Player who plays the game
+
+        Returns:
+            str: Color of the winner turtle
+        """
         is_on = True
 
         while is_on:
@@ -27,6 +37,13 @@ class Game:
         return winner
 
     def display_winner(self, user: PLAYER, winner: str, turtle: RACER) -> None:
+        """Display in the screen the winner of the race
+
+        Args:
+            user (PLAYER): Player who plays the game
+            winner (str): Color of the winner turtle
+            turtle (RACER): The winner turtle object
+        """
         ALIGN = "right"
         FONT = ("Courier", 15, "bold")
         default = ""
