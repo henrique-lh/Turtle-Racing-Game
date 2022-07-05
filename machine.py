@@ -81,15 +81,16 @@ class Machine:
 
         os.system('clear')
 
-        print(f"{'REGISTER':^28}\n")
+        print(f"{'PLAYER INFO':^28}\n")
         print(f"Name: {Machine._player.name.capitalize():<22}")
         print(f"Age: {Machine._player.age:<22}")
+        print(f"Email: {Machine._player.email:<22}")
         cash_format = f"{(Machine._player.inital_value / 100):.2f}"
         print(f"Cash: $ {cash_format:<21}")
 
         print()
 
-        print(f"{'Bets':^33}\n")
+        print(f"{'STATISTICS':^33}\n")
         print(Machine._log)
 
     def play(self) -> bool:
