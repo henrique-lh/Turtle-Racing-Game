@@ -11,6 +11,7 @@ Table of content
 * [Tecnologies](#tecnologies)
 * [Study material](#study-material)
 * [Features](#features)
+* [Contacts](#contacts)
 <!--te-->
 
 ## About the project
@@ -59,19 +60,23 @@ Here there are some useful links, that I used to study while I was making the pr
 
 - [x] Add docs
 - [x] Add GUI interface to get user data and inputs
+- [ ] Fix line 102 from the machine.py file
+- [ ] Add demo video
 - [ ] Add bar graph with the victories of the turtles
-- [ ] Add exceptions to get errors:
+- [ ] Add exceptions to get possible errors:
     - [ ] People younger than 18 won't be able to bet
+    - [ ] It's not possible to bet a value less than 1
+    - [ ] You can't start the game if you don't give an value bigger than 100
 
-## Contact
+## Contacts
 
 [![Linkedin Badge](https://img.shields.io/badge/-Luis_Henrique-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/luis-henrique-l-santos/)](https://www.linkedin.com/in/luis-henrique-l-santos/) [![Gmail Badge](https://img.shields.io/badge/-henrique.santos.lhls@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:henrique.santos.lhls@gmail.com)](mailto:henrique.santos.lhls@gmail.com)
 
 ---
 
-<h4 align="center">
+<h3 align="center">
     🚧  Turtle racing game 🐢 In progress...  🚧
-</h4>
+</h3>
 
 ---
 
