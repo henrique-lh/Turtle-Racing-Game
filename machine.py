@@ -1,17 +1,17 @@
-import sys
 from turtle import Screen, TurtleScreen
-from typing import Dict
 from player import Player
 from game import Game
 from racer import setup_racers, COLORS
 import os
-from prettytable import PrettyTable
+from prettytable import PrettyTable, DOUBLE_BORDER
 
 
 def config_log() -> PrettyTable:
     """Return a configured PrettyTable object"""
 
     table = PrettyTable()
+    table.set_style(DOUBLE_BORDER)
+
     table.field_names = ["Your bet", "Value", "Result"]
     table.align["Your bet"] = "l"
     table.align["Value"] = "r"
@@ -25,11 +25,26 @@ def lines() -> None:
 
     print('-' * 50)
 
-def show_possible_colors():
+def show_possible_colors() -> None:
     """Print the possible color that can be choosen by the user"""
 
+    def colored(r, g, b, text) -> str:
+        return "\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(r, g, b, text)
+
+    rgb_code = {
+        'white': (255, 255, 255),
+        'red': (255, 0, 0),
+        'orange': (255, 127, 0),
+        'pink': (255, 182, 193),
+        'tomato': (238, 92, 66),
+        'dodgerblue': (30, 144, 255),
+        'yellow': (255, 255, 0)
+    }
+
     for index, color in enumerate(COLORS):
-        print(f"{index + 1} - {color}")
+        text = f"{index + 1} - {color}"
+        colored_text = colored(*rgb_code[color], text)
+        print(colored_text)
     print()
 
 class Machine:
@@ -66,7 +81,7 @@ class Machine:
 
         os.system('clear')
 
-        print(f"{'REGISTER':^28}")
+        print(f"{'REGISTER':^28}\n")
         print(f"Name: {Machine._player.name.capitalize():<22}")
         print(f"Age: {Machine._player.age:<22}")
         cash_format = f"{(Machine._player.inital_value / 100):.2f}"
@@ -74,7 +89,7 @@ class Machine:
 
         print()
 
-        print(f"{'Bets':^33}")
+        print(f"{'Bets':^33}\n")
         print(Machine._log)
 
     def play(self) -> bool:
@@ -85,16 +100,16 @@ class Machine:
         print("Do you wanna play the game?\nYES - 1\tNO - 2\n")
 
         try:
-            keep_game = int(input())
+            keep_game = int(input("Enter your option: "))
         except ValueError:
             os.system('clear')
             print("Do you wanna play the game?\nYES - 1\tNO - 2\n")
-            keep_game = int(input())
+            keep_game = int(input("Enter your option: "))
 
         if keep_game == 1:
             print('New color bet. Choose a color:')
             show_possible_colors()
-            color = int(input()) - 1
+            color = int(input("Enter your option: ")) - 1
             Machine._player.bet_color = COLORS[color]
             Machine._player.bet_value = float(input('Value bet: ')) * 100
             return True
