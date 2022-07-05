@@ -1,8 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
-from registerWindow import RegisterWindow
 import csv
-from typing import List
 
 @dataclass
 class Player:
@@ -12,9 +10,9 @@ class Player:
     _name: str
     _age: int
     _initial_value: float
+    _email: str
     _bet_value: float = None
     _bet_color: str = None
-
 
     @classmethod
     def cli_input(cls) -> Player:
@@ -28,7 +26,8 @@ class Player:
         new_name = input("Enter your name: ")
         new_age = int(input("Enter your age: "))
         new_amount = float(input("Register a value to enter the cassino: ")) * 100
-        return cls(new_name, new_age, new_amount)
+        new_email = input("Enter an email: ")
+        return cls(new_name, new_age, new_amount, new_email)
 
     @classmethod
     def csv_input(cls) -> Player:
@@ -42,8 +41,8 @@ class Player:
             csv_reader  = csv.reader(csv_file, delimiter=',')
             data = list(csv_reader)
 
-        new_name, new_age, new_amount = data[0][0], int(data[0][1]), float(data[0][2]) * 100
-        return cls(new_name, new_age, new_amount)
+        new_name, new_age, new_amount, new_email = data[0][0], int(data[0][1]), float(data[0][2]) * 100, data[0][3]
+        return cls(new_name, new_age, new_amount, new_email)
 
     @property
     def name(self) -> str:
@@ -92,3 +91,7 @@ class Player:
         """Set the bet value"""
 
         self._bet_value = new_value
+
+    @property
+    def email(self) -> None:
+        return self._email
