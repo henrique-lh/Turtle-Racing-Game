@@ -66,7 +66,7 @@ Here there are some useful links, that I used to study while I was making the pr
 - [ ] Add exceptions to get possible errors:
     - [ ] People younger than 18 won't be able to bet
     - [ ] It's not possible to bet a value less than 1
-    - [ ] You can't start the game if you don't give an value bigger than 100
+    - [ ] You can't start the game if you don't enter a value bigger than 100
 
 ## Contacts
 
