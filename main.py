@@ -1,12 +1,11 @@
-from machine import Machine
-import os
+from games import TurtleKart
 
-def main() -> None:
-    """Main function"""
-    os.system('python3 registerWindow.py')
-
-    machine = Machine()
-    machine.start_machine()
+def main():
+    user_bet = "yellow"
+    game = TurtleKart()
+    game.config()
+    game.play(user_bet=user_bet)
 
 if __name__ == "__main__":
     main()
+
