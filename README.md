@@ -27,16 +27,16 @@ Before to get start the, you must install these tools on your machine:
 
 ```bash
 # Cloning repository
-$ git clone https://github.com/EngComp-Henrique/Turtle-Racing-Game.git
+git clone https://github.com/EngComp-Henrique/Turtle-Racing-Game.git
 
 # Accessing project folder
-$ cd Turtle-Racing-Game
+cd Turtle-Racing-Game
 
 # Installing libraries
-$ pip install -r requirements.txt
+pip install -r requirements.txt
 
 # Executing
-$ python3 main.py
+python3 main.py
 ```
 
 ## 🛠 Tecnologies
@@ -56,17 +56,7 @@ Here there are some useful links, that I used to study while I was making the pr
 * [Custom Tkinter Library Documentation](https://github.com/TomSchimansky/CustomTkinter)
 * [Dataclasses](https://realpython.com/python-data-classes/)
 
-## 💡 Features
 
-- [x] Add docs
-- [x] Add GUI interface to get user data and inputs
-- [ ] Fix line 102 from the machine.py file
-- [ ] Add demo video
-- [ ] Add bar graph with the victories of the turtles
-- [ ] Add exceptions to get possible errors:
-    - [ ] People younger than 18 won't be able to bet
-    - [ ] It's not possible to bet a value less than 1
-    - [ ] You can't start the game if you don't enter a value bigger than 100
 
 ## Contacts
 
