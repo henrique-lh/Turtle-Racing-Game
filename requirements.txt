@@ -1,3 +1,0 @@
-matplotlib==3.5.1
-prettytable==3.3.0
-customtkinter==0.3
