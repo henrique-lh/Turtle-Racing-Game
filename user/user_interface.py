@@ -1,4 +1,5 @@
 import customtkinter
+from user_info import User
 
 customtkinter.set_appearance_mode("Light")
 customtkinter.set_default_color_theme("green")
@@ -35,9 +36,12 @@ class App(customtkinter.CTk):
         self.button.grid(row=1, column=1, padx=20, pady=20)
 
     def save_user(self):
-        print("button clicked")
+        self.user = User(self.user_name_entry.get(), int(self.chips_entry.get()), self.email_entry.get(), self.phone_entry.get())
         self.destroy()
+        
 
-app = App()
-app.mainloop()
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()
+    print(app.user)
 
