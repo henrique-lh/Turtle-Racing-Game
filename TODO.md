@@ -5,4 +5,5 @@
 - [ ] Separete files in modules
 - [ ] Add feature: replay any game
 - [ ] Create blackjack game
-- [ ] Create abstract game class
+- [ ] Google more python
+- [x] Create abstract game class
