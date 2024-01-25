@@ -15,8 +15,6 @@ class GameInterface(metaclass=abc.ABCMeta):
                 callable(__subclass.config) and 
                 hasattr(__subclass, "play") and
                 callable(__subclass.play) and
-                hasattr(__subclass, "repeat") and
-                callable(__subclass.repeat) and 
                 hasattr(__subclass, "destroy") and 
                 callable(__subclass.destroy) or 
                 NotImplemented
@@ -30,11 +28,6 @@ class GameInterface(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def play(self, **kwargs):
         """Play the game"""
-        raise NotImplementedError
-
-    @abc.abstractmethod 
-    def repeat(self):
-        """Replay the game"""
         raise NotImplementedError
 
     @abc.abstractmethod

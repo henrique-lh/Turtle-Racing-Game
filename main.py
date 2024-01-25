@@ -1,10 +1,8 @@
-from games import TurtleKart
+from frontend import Machine
 
 def main():
-    user_bet = "yellow"
-    game = TurtleKart()
-    game.config()
-    game.play(user_bet=user_bet)
+    machine = Machine()
+    machine.mainloop()
 
 if __name__ == "__main__":
     main()

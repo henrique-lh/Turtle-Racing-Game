@@ -16,7 +16,7 @@ def generate_fake_user_data():
 
 
 def generate_ids():
-    chars = string.ascii_lowercase + string.digits
-    return "".join(chars[random.randint(0, 35)] for _ in range(6))
-
+    pw = [string.ascii_lowercase[random.randint(0, 25)] if i % 2 == 0 else string.digits[random.randint(0, 9)] for i in range(6)]
+    random.shuffle(pw)
+    return "".join(pw)
 

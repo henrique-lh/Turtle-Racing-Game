@@ -1,12 +1,14 @@
-from results import Result
-from user_info import User
+from user import User
 import customtkinter
 from utils.generate_data import generate_fake_user_data
+from CTkMessagebox import CTkMessagebox
+
 
 fake_user = generate_fake_user_data()
 
-customtkinter.set_appearance_mode("Light")
+customtkinter.set_appearance_mode("Dark")
 customtkinter.set_default_color_theme("green")
+
 
 class RegisterApp(customtkinter.CTkToplevel):
 
@@ -23,31 +25,40 @@ class RegisterApp(customtkinter.CTkToplevel):
         self.text_frame = customtkinter.CTkFrame(master=self, width=1280, height=200, corner_radius=20)
         self.text_frame.grid(row=0, column=1, padx=20, pady=20, stick="nsew")
 
-        self.label = customtkinter.CTkLabel(self.text_frame, text="Realize seu registro", font=customtkinter.CTkFont(size=20, weight="bold"))
+        self.label = customtkinter.CTkLabel(self.text_frame, text="Realize seu registro",
+                                            compound="left", font=customtkinter.CTkFont(size=20, weight="bold", family="Helvetica"))
         self.label.grid(row=0, column=0, padx=20, pady=20)
 
-        self.user_name_entry = customtkinter.CTkEntry(self.text_frame, placeholder_text="Nome", height=40, width=280)
+        self.user_name_entry = customtkinter.CTkEntry(self.text_frame, placeholder_text="Nome", height=40, width=280, 
+                                                      font=customtkinter.CTkFont(family="Lato"))
         self.user_name_entry.grid(row=1, column=0, padx=30, pady=20)
         self.user_name_entry.insert(0, fake_user["name"])
 
-        self.chips_entry = customtkinter.CTkEntry(self.text_frame, placeholder_text="Qt. de Fichas", height=40, width=280)
+        self.chips_entry = customtkinter.CTkEntry(self.text_frame, placeholder_text="Qt. de Fichas", height=40, width=280, 
+                                                      font=customtkinter.CTkFont(family="Lato"))
         self.chips_entry.grid(row=2, column=0, padx=30, pady=20)
         self.chips_entry.insert(0, fake_user["total_chips"])
 
-        self.email_entry = customtkinter.CTkEntry(self.text_frame, placeholder_text="Email", height=40, width=280)
+        self.email_entry = customtkinter.CTkEntry(self.text_frame, placeholder_text="Email", height=40, width=280, 
+                                                      font=customtkinter.CTkFont(family="Lato"))
         self.email_entry.grid(row=1, column=1, padx=30, pady=20)
         self.email_entry.insert(0, fake_user["email"])
 
-        self.phone_entry = customtkinter.CTkEntry(self.text_frame, placeholder_text="Telefone", height=40, width=280)
+        self.phone_entry = customtkinter.CTkEntry(self.text_frame, placeholder_text="Telefone", height=40, width=280, 
+                                                      font=customtkinter.CTkFont(family="Lato"))
         self.phone_entry.grid(row=2, column=1, padx=30, pady=20)
         self.phone_entry.insert(0, fake_user["phone"])
 
-        self.button = customtkinter.CTkButton(self, text="Entrar/Registrar", command=self.save_user)
+        self.button = customtkinter.CTkButton(self, text="Entrar/Registrar", corner_radius=10, height=50, width=25, 
+                                              font=customtkinter.CTkFont(size=17, family="Lato"),
+                                              command=self.save_user)
         self.button.grid(row=1, column=1, padx=20, pady=20)
 
     def save_user(self):
         self.user = User(self.user_name_entry.get(), int(self.chips_entry.get()), self.email_entry.get(), self.phone_entry.get())
-        print(self.user)
+        message_box = CTkMessagebox(master=self, title="Sign Up", message=f"Usuário criado com sucecsso. Seu código de acesso é: {self.user.card.upper()}", 
+                            icon="check", option_1="Continue")
+        message_box.wait_window()
         self.destroy()
         
 
@@ -76,13 +87,11 @@ class LoginApp(customtkinter.CTkToplevel):
         self.button.grid(row=1, column=1, padx=20, pady=20)
 
     def login(self):
-        #user = Result().retrieve_data(self.card_entry.get())
-        #self.user = User(**user)
-        print("logado")
+        self.user = User.from_code(self.card_entry.get())
         self.destroy()
 
 
-class AccessOption(customtkinter.CTk):
+class AccessOption(customtkinter.CTkToplevel):
 
     def __init__(self):
         super().__init__()
@@ -103,6 +112,7 @@ class AccessOption(customtkinter.CTk):
         self.withdraw()  # Oculta a janela principal
         login = LoginApp()
         login.wait_window()  # Aguarda até que a janela seja fechada
+        self.user = login.user
         self.deiconify()  # Exibe a janela principal após o término da janela secundária
         self.destroy()
 
@@ -110,11 +120,8 @@ class AccessOption(customtkinter.CTk):
         self.withdraw()  # Oculta a janela principal
         register = RegisterApp()
         register.wait_window()  # Aguarda até que a janela seja fechada
+        self.user = register.user
         self.deiconify()
         self.destroy()
 
-
-if __name__ == "__main__":
-    access = AccessOption()
-    access.mainloop()
 

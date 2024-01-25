@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 import re
 from utils.generate_data import generate_ids
+import os
+import csv
 
 
 @dataclass
@@ -12,6 +14,7 @@ class User:
     total_chips: int
     email: str
     phone: str
+    card: str = ""
 
     def __post_init__(self):
         """Validate entries"""
@@ -21,7 +24,8 @@ class User:
         if not self.validate_phone_number():
             raise ValueError("Telefone em formato inadequado")
 
-        self.card = generate_ids()
+        if not self.card:
+            self.card = generate_ids()
     
     def validate_email(self):
         """Validate email"""
@@ -39,4 +43,15 @@ class User:
         if self.total_chips - chips < 0:
             raise ValueError(f"Não é possível apostar. Suas fichas: {self.total_chips}")
         self.total_chips -= chips
+
+    @classmethod
+    def from_code(cls, code: str):
+        csv_path = os.path.join(os.path.dirname(os.path.realpath("Turtle-Racing-Game")), "results")
+        csv_file = os.path.join(csv_path, "result.csv")
+        with open(csv_file, newline='') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if row[0] == code:
+                    return cls(name=row[1], email=row[2], phone=row[3], total_chips=int(row[4]), card=row[0])
+        raise ValueError("code not found")
 

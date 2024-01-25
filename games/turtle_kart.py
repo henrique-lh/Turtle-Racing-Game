@@ -2,6 +2,7 @@ from .game import GameInterface
 from turtle import Turtle, Screen, screensize
 import random
 import os
+import time
 
 
 FONT = ("Courier", 14, "bold")
@@ -16,6 +17,7 @@ class TurtleKart(GameInterface):
     def config(self):
         self.y_positions = [-260, -172, -85, 2, 85, 172, 260]
         self.colors = ["white", "red", "orange", "pink", "tomato", "dodgerblue", "yellow"]
+        self.odds = [random.randint(0, 500) / 100 for _ in range(7)]
         self.all_turtles = []
         self.screen.setup(width=800, height=600)
         self.screen.bgpic(os.path.join(self.path, "road.gif"))
@@ -30,24 +32,28 @@ class TurtleKart(GameInterface):
             self.all_turtles.append(new_tur)
  
     def play(self, **kwargs):
+        user_bet = kwargs["user_bet"]
+        chips = kwargs['chips']
+        user = kwargs['user']
+
         is_on = True
         while is_on:
             for turtle in self.all_turtles:
                 if turtle.xcor() > 330:
                     is_on = False
                     winner = turtle.pencolor()
-                    if winner == kwargs["user_bet"]:
+                    if winner == user_bet:
                         turtle.write(f"You won! {winner} turtle is winner", font=FONT, align=ALIGN)
+                        user.total_chips = user.total_chips + chips * self.odds[self.colors.index(winner)]
                     else:
                         turtle.write(f"You lost! The {winner} turtle is winner", font=FONT, align=ALIGN)
+                        user.total_chips -= chips
                 random_pace = random.randint(0, 30)
                 turtle.forward(random_pace)
-
-        self.screen.exitonclick()
-
-    def repeat(self):
-        pass
+        self.destroy() 
 
     def destroy(self):
-        pass
+        time.sleep(1.75)
+        self.screen.bye()
+        self.screen.clear()
 
