@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import re
-import random 
+from utils.generate_data import generate_ids
 
 
 @dataclass
@@ -21,7 +21,7 @@ class User:
         if not self.validate_phone_number():
             raise ValueError("Telefone em formato inadequado")
 
-        self.card = "".join(str(random.randint(0, 9)) for _ in range(6))
+        self.card = generate_ids()
     
     def validate_email(self):
         """Validate email"""
@@ -32,8 +32,6 @@ class User:
         """Validate phone number"""
         pattern = re.compile(r'\(\d{2}\) \d{5}-\d{4}$')
         pattern2 = re.compile(r'^\d{11}$')
-        print(pattern2.match(self.phone))
-        print(pattern.match(self.phone))
         return pattern.match(self.phone) or pattern2.match(self.phone)
 
     def bet(self, chips):
