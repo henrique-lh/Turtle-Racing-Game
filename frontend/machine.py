@@ -1,4 +1,5 @@
 import customtkinter
+from games import TurtleKart
 from frontend import AccessOption
 import csv
 import os
@@ -59,11 +60,10 @@ class Machine(customtkinter.CTk):
         self.deiconify()
 
     def play(self):
-        from games import TurtleKart
         user_bet = self.color_entry.get()
-        game = TurtleKart()
-        game.config()
-        game.play(user_bet=user_bet, chips=int(self.chip_entry.get()), user=self.user)
+        self.game = TurtleKart()
+        self.game.config()
+        self.game.play(user_bet=user_bet, chips=int(self.chip_entry.get()), user=self.user)
 
     def quit(self):
         csv_path = os.path.join(os.path.dirname(os.path.realpath("Turtle-Racing-Game")), "results")
@@ -73,6 +73,7 @@ class Machine(customtkinter.CTk):
             writter.writerow(
                 [self.user.card, self.user.name, self.user.email, self.user.phone, str(self.user.total_chips), datetime.datetime.now().strftime("%Y-%m-%dT%H:%M")]
             )
+        self.game.screen.bye()
         self.destroy()
 
 
