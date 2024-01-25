@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import re
+import random 
 
 
 @dataclass
@@ -19,6 +20,8 @@ class User:
 
         if not self.validate_phone_number():
             raise ValueError("Telefone em formato inadequado")
+
+        self.card = "".join(str(random.randint(0, 9)) for _ in range(6))
     
     def validate_email(self):
         """Validate email"""
