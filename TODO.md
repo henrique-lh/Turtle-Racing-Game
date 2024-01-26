@@ -1,9 +1,7 @@
 ## 💡 Features
 
 - [ ] Rewrite README.md 
-- [ ] Get user interface data and instanciate new classe
-- [ ] Separete files in modules
-- [ ] Add feature: replay any game
-- [ ] Create blackjack game
-- [ ] Google more python
+- [x] Get user interface data and instanciate new classe
+- [x] Separete files in modules
+- [x] Add feature: replay any game
 - [x] Create abstract game class
