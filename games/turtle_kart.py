@@ -1,4 +1,3 @@
-from .game import GameInterface
 from turtle import Turtle, Screen
 import random
 import os
@@ -15,10 +14,10 @@ class TurtleKart:
         self.screen = Screen()
         self.path = os.path.join(os.path.dirname(os.path.realpath("Turtle-Racing-Game")), "assets")
     
-    def config(self):
+    def config(self, colors, odds):
         self.y_positions = [-260, -172, -85, 2, 85, 172, 260]
-        self.colors = ["white", "red", "orange", "pink", "tomato", "dodgerblue", "yellow"]
-        self.odds = [random.randint(0, 500) / 100 for _ in range(7)]
+        self.colors = colors.copy()
+        self.odds = odds.copy()
         self.all_turtles = []
         self.screen.setup(width=800, height=600)
         self.screen.bgpic(os.path.join(self.path, "road.gif"))
@@ -46,17 +45,14 @@ class TurtleKart:
                     if winner == user_bet:
                         turtle.write(f"You won! {winner} turtle is winner", font=FONT, align=ALIGN)
                         user.total_chips = user.total_chips + chips * self.odds[self.colors.index(winner)]
-                        print(self.odds)
-                        print(chips * self.odds[self.colors.index(winner)])
                     else:
                         turtle.write(f"You lost! The {winner} turtle is winner", font=FONT, align=ALIGN)
-                        user.total_chips -= chips
-                    break
+                    break 
                 random_pace = random.randint(0, 30)
                 turtle.forward(random_pace)
         self.destroy() 
 
     def destroy(self):
-        time.sleep(1.25)
+        time.sleep(1)
         self.screen.reset()
 

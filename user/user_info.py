@@ -11,7 +11,7 @@ class User:
     """A class to hold a user's data."""
 
     name: str
-    total_chips: int
+    total_chips: float
     email: str
     phone: str
     card: str = ""
@@ -19,9 +19,11 @@ class User:
     def __post_init__(self):
         """Validate entries"""
         if not self.validate_email():
+            print("erro no email")
             raise ValueError("Email não é válido")
 
         if not self.validate_phone_number():
+            print("erro no número")
             raise ValueError("Telefone em formato inadequado")
 
         if not self.card:
@@ -52,6 +54,7 @@ class User:
             reader = csv.reader(f)
             for row in reader:
                 if row[0] == code:
-                    return cls(name=row[1], email=row[2], phone=row[3], total_chips=int(row[4]), card=row[0])
+                    print("retornei")
+                    return cls(name=row[1], email=row[2], phone=row[3], total_chips=round(float(row[4]), 2), card=row[0])
         raise ValueError("code not found")
 
