@@ -9,7 +9,7 @@ def generate_fake_user_data():
     name = fake.name()
     return {
         "name": name,
-        "total_chips": str(random.randint(1, 300)),
+        "total_chips": str(random.randint(100, 1000)),
         "email": "".join(unidecode(letter) for letter in name.lower() if letter != " ") + "@ex.com",
         "phone": "".join(str(random.randint(0, 9)) for _ in range(11))
     }

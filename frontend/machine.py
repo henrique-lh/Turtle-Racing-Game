@@ -99,6 +99,8 @@ class Machine(customtkinter.CTk):
             except ValueError as e:
                 no_chips_message = CTkMessagebox(master=self, title="Erro", message="Você não possui fichas o suficiente!", icon="Error", option_1="Continuar")
                 no_chips_message.wait_window()
+            finally:
+                self.quit()
         else:
             no_bet_color = CTkMessagebox(master=self, title="Erro", message="Por favor, escolha uma cor", option_1="Continuar")
             no_bet_color.wait_window()
