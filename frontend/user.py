@@ -2,7 +2,6 @@ from user import User
 import customtkinter
 from utils.generate_data import generate_fake_user_data
 from CTkMessagebox import CTkMessagebox
-from errors import LoginError
 
 DEBUG_REGISTER_WINDOW = True 
 
@@ -96,7 +95,6 @@ class LoginApp(customtkinter.CTkToplevel):
     def login(self):
         try:
             self.user = User.from_code(self.card_entry.get())
-            print(self.user)
             correct_pw = CTkMessagebox(master=self, title="Sign in", 
                                        message=f"Bem vindo! {self.user.name}. Você possui {self.user.total_chips} fichas. Deseja adicionar mais?",
                                        option_1="Sim", option_2="Não")
@@ -109,8 +107,6 @@ class LoginApp(customtkinter.CTkToplevel):
                 self.deiconify()
             print(self.user)
         except (ValueError) as e:
-            print(e.__class__.__name__)
-            print(e)
             login_box_error = CTkMessagebox(master=self, title="Erro no login", message="Usuário ou senha incorreta", icon="cancel", option_1="Continue")
             login_box_error.wait_window()
         finally:

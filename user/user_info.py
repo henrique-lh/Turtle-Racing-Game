@@ -54,7 +54,6 @@ class User:
             reader = csv.reader(f)
             for row in reader:
                 if row[0] == code:
-                    print("retornei")
                     return cls(name=row[1], email=row[2], phone=row[3], total_chips=round(float(row[4]), 2), card=row[0])
         raise ValueError("code not found")
 

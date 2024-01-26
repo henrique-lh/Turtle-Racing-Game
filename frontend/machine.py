@@ -44,7 +44,6 @@ class Machine(customtkinter.CTk):
         self.chip_entry.grid(row=1, column=2, padx=20, pady=20)
         self.chip_entry.insert(0, str(100))
 
-        # botõelse:
         self.text_colors = ["white", "red", "orange", "pink", "tomato", "dodgerblue", "yellow"]
         hover_colors = ["#B2B2B2", "#FF0000", "#FF7000", "#FF00D8", "#FF5100", "#0061FF", "#F7FF00"]
         colors = ["#F5F5F5", "#F04646", "#FF9E4D", "#FC76FC", "#FF753D", "#7BC5FF", "#FFFF71"]
@@ -112,7 +111,7 @@ class Machine(customtkinter.CTk):
         with open(csv_file, mode="a", newline="") as f:
             writter = csv.writer(f)
             writter.writerow(
-                [self.user.card, self.user.name, self.user.email, self.user.phone, str(self.user.total_chips), datetime.datetime.now(timezone).strftime(time_format)]
+                [self.user.card, self.user.name, self.user.email, self.user.phone, str(round(self.user.total_chips, 2)), datetime.datetime.now(timezone).strftime(time_format)]
             )
         self.destroy()
         self.game.screen.bye()
