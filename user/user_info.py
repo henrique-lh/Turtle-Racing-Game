@@ -11,7 +11,7 @@ class User:
     """A class to hold a user's data."""
 
     name: str
-    total_chips: float
+    total_chips: int
     email: str
     phone: str
     card: str = ""
@@ -52,6 +52,6 @@ class User:
             reader = csv.reader(f)
             for row in reader:
                 if row[0] == code:
-                    return cls(name=row[1], email=row[2], phone=row[3], total_chips=round(float(row[4]), 2), card=row[0])
+                    return cls(name=row[1], email=row[2], phone=row[3], total_chips=int(round(float(row[4]))), card=row[0])
         raise ValueError("code not found")
 
