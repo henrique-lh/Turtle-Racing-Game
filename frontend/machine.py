@@ -119,18 +119,22 @@ class Machine(customtkinter.CTk):
             no_bet_color.wait_window()
 
     def quit(self):
-        csv_path = os.path.join(os.path.dirname(os.path.realpath("Turtle-Racing-Game")), "results")
-        csv_file = os.path.join(csv_path, "result.csv")
-        time_format = "%d/%m/%Y - %H:%M".strip()
-        timezone = pytz.timezone("America/Recife")
-        with open(csv_file, mode="a", newline="") as f:
-            writter = csv.writer(f)
-            writter.writerow(
-                [self.user.card, self.user.name, self.user.email, self.user.phone, str(round(self.user.total_chips, 2)), datetime.datetime.now(timezone).strftime(time_format)]
-            )
-        self.destroy()
-        self.game.screen.bye()
-        sys.exit()
+        try:
+            csv_path = os.path.join(os.path.dirname(os.path.realpath("Turtle-Racing-Game")), "results")
+            csv_file = os.path.join(csv_path, "result.csv")
+            time_format = "%d/%m/%Y - %H:%M".strip()
+            timezone = pytz.timezone("America/Recife")
+            with open(csv_file, mode="a", newline="") as f:
+                writter = csv.writer(f)
+                writter.writerow(
+                    [self.user.card, self.user.name, self.user.email, self.user.phone, str(round(self.user.total_chips, 2)), datetime.datetime.now(timezone).strftime(time_format)]
+                )
+            self.destroy()
+            self.game.screen.bye()
+        except Exception as e:
+            pass
+        finally:
+            sys.exit()
 
     def show_value(self, text):
         self.color_entry.delete("1.0", customtkinter.END)
@@ -138,5 +142,10 @@ class Machine(customtkinter.CTk):
         self.user_bet = text
 
     def update_chips(self):
-        self.total_chips_text.configure(text=f"Fichas: {self.user.total_chips}")
+        msg = self.user.total_chips
+        if 1000 <= msg <= 99999:
+            msg = f"{msg // 1000}K"
+        elif 1000000 <= msg <= 9999999:
+            msg = f"{msg/10000}M"
+        self.total_chips_text.configure(text=f"Fichas: {msg}")
 
