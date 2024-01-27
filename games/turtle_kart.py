@@ -44,7 +44,7 @@ class TurtleKart:
                     winner = turtle.pencolor()
                     if winner == user_bet:
                         turtle.write(f"You won! {winner} turtle is winner", font=FONT, align=ALIGN)
-                        user.total_chips = user.total_chips + chips * self.odds[self.colors.index(winner)]
+                        user.total_chips = int(round(user.total_chips + chips * self.odds[self.colors.index(winner)]))
                     else:
                         turtle.write(f"You lost! The {winner} turtle is winner", font=FONT, align=ALIGN)
                     break 
@@ -53,6 +53,9 @@ class TurtleKart:
         self.destroy() 
 
     def destroy(self):
-        time.sleep(1)
-        self.screen.reset()
+        try:
+            time.sleep(1)
+            self.screen.reset()
+        except Exception as e:
+            print("Deu erro pai")
 
