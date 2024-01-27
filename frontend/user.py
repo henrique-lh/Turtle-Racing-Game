@@ -105,7 +105,6 @@ class LoginApp(customtkinter.CTkToplevel):
                 chips_option.wait_window()
                 self.user.total_chips += chips_option.added_chips
                 self.deiconify()
-            print(self.user)
         except (ValueError) as e:
             login_box_error = CTkMessagebox(master=self, title="Erro no login", message="Usuário ou senha incorreta", icon="cancel", option_1="Continue")
             login_box_error.wait_window()

@@ -1,13 +1,12 @@
 import customtkinter
 from games import TurtleKart
-from frontend import AccessOption
+from frontend import AccessOption, ChipsOptions
 import csv
 import os
 import datetime
 import pytz
 import random
 from CTkMessagebox import CTkMessagebox
-from errors import LoginError
 
 
 customtkinter.set_appearance_mode("Dark")
@@ -73,7 +72,7 @@ class Machine(customtkinter.CTk):
 
         self.play_button = customtkinter.CTkButton(self.button_frame, text="Jogar", command=self.play, 
                                               font=customtkinter.CTkFont(size=17, family="Hack Nerd Font"))
-        self.play_button.place(rely=0.3, relx=0.1) 
+        self.play_button.place(rely=0.3, relx=0.1)
 
         self.quit_button = customtkinter.CTkButton(self.button_frame, text="Sair", command=self.quit, 
                                               font=customtkinter.CTkFont(size=17, family="Hack Nerd Font"))
@@ -87,6 +86,9 @@ class Machine(customtkinter.CTk):
         access.wait_window()
         self.user = access.user
         self.deiconify()
+        self.total_chips_text = customtkinter.CTkLabel(self.button_frame, text=f"Fichas: {self.user.total_chips}",
+                                                       font=customtkinter.CTkFont(size=20, family="Hack Nerd Font"))
+        self.total_chips_text.place(rely=0.3, relx=0.4)
 
     def play(self):
         if self.user_bet:
@@ -94,13 +96,22 @@ class Machine(customtkinter.CTk):
                 bet_chips = int(self.chip_entry.get())
                 self.user.bet(bet_chips)
                 self.game = TurtleKart()
+                self.total_chips_text.configure(text=f"Fichas: {self.user.total_chips}")    # Após aposta, antes do resultado
                 self.game.config(self.text_colors, self.values)
                 self.game.play(user_bet=self.user_bet, chips=bet_chips, user=self.user)
+                self.total_chips_text.configure(text=f"Fichas: {self.user.total_chips}")    # Após resultado
             except ValueError as e:
-                no_chips_message = CTkMessagebox(master=self, title="Erro", message="Você não possui fichas o suficiente!", icon="Error", option_1="Continuar")
-                no_chips_message.wait_window()
-            finally:
-                self.quit()
+                self.withdraw()
+                no_chips_message = CTkMessagebox(
+                    master=self, title="Valor insuficiente", message=f"Você não possui fichas o suficiente! Suas fichas {self.user.total_chips}", 
+                    icon="warning", option_1="Adicionar mais fichas", option_2="Sair"
+                )
+                if no_chips_message.get() == "Sair":
+                    self.quit()
+                chips_option = ChipsOptions()
+                chips_option.wait_window()
+                self.user.total_chips += chips_option.added_chips
+                self.deiconify()
         else:
             no_bet_color = CTkMessagebox(master=self, title="Erro", message="Por favor, escolha uma cor", option_1="Continuar")
             no_bet_color.wait_window()
