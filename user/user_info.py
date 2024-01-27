@@ -19,12 +19,10 @@ class User:
     def __post_init__(self):
         """Validate entries"""
         if not self.validate_email():
-            print("erro no email")
-            raise ValueError("Email não é válido")
+            raise ValueError("Invalid email")
 
         if not self.validate_phone_number():
-            print("erro no número")
-            raise ValueError("Telefone em formato inadequado")
+            raise ValueError("Invalid phone number")
 
         if not self.card:
             self.card = generate_ids()
@@ -43,7 +41,7 @@ class User:
     def bet(self, chips):
         """Bet in a game"""
         if self.total_chips - chips < 0:
-            raise ValueError(f"Não é possível apostar. Suas fichas: {self.total_chips}")
+            raise ValueError("You do not have enough chips.")
         self.total_chips -= chips
 
     @classmethod
