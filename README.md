@@ -1,22 +1,12 @@
 # 🏁 Turtle Racing Game 🏁
 
-This project is a game based on the article from [FreeCodeCamp](https://www.freecodecamp.org/news/how-to-make-racing-game-using-python/) with some modifications.
+This project is a game based on the article from [FreeCodeCamp](https://www.freecodecamp.org/news/how-to-make-racing-game-using-python/) with some modifications. In this project you'll be able to bet chips on a color.
 
-Table of content
-====
-<!--ts-->
-* [About the project](#about-the-project)
-* [Prerequisites](#prerequisites)
-* [Running the game](#running-the-game)
-* [Tecnologies](#tecnologies)
-* [Study material](#study-material)
-* [Features](#features)
-* [Contacts](#contacts)
-<!--te-->
+If you found some error contact me in the [Contacts](#contacts) :D
 
 ## About the project
 
-The motivation behind this project was to get practice with the python Turtle module and learn some python features such as dataclasses, decorators and Object Oriented Programming concepts. Also, I was able to explore the library `PrettyTable` and `customtkinter`.
+The motivation behind this project was to get practice with the python Turtle module and learn some python features such as dataclasses, decorators and Object Oriented Programming concepts.
 
 ## Prerequisites
 
@@ -45,8 +35,8 @@ The tools used to build this project were:
 
 - [Python](https://www.python.org/)
 - [Turtle](https://docs.python.org/3/library/turtle.html)
-- [Tkinter](https://docs.python.org/3/library/tkinter.html)
-- [Matplotlib](https://matplotlib.org/)
+- [Custom Tkinter](https://customtkinter.tomschimansky.com/)
+- [CTkMessagebox](https://github.com/Akascape/CTkMessagebox/tree/main)
 
 ## 📚 Study materials
 
@@ -62,12 +52,16 @@ Here there are some useful links, that I used to study while I was making the pr
 
 [![Linkedin Badge](https://img.shields.io/badge/-Luis_Henrique-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/luis-henrique-l-santos/)](https://www.linkedin.com/in/luis-henrique-l-santos/) [![Gmail Badge](https://img.shields.io/badge/-henrique.santos.lhls@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:henrique.santos.lhls@gmail.com)](mailto:henrique.santos.lhls@gmail.com)
 
----
 
-<h3 align="center">
-    🚧  Turtle racing game 🐢 In progress...  🚧
-</h3>
+## 💡 Features
 
----
+- [x] Add tests
+- [x] Rewrite README.md 
+- [x] Get user interface data and instanciate new classe
+- [x] Separete files in modules
+- [x] Add feature: replay any game
+- [x] Create abstract game class
+- [x] Fix quit error
+- [x] Fix CTkMessagebox error
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
