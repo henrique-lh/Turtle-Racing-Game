@@ -7,6 +7,7 @@ import datetime
 import pytz
 import random
 from CTkMessagebox import CTkMessagebox
+import sys
 
 
 customtkinter.set_appearance_mode("Dark")
@@ -96,21 +97,22 @@ class Machine(customtkinter.CTk):
                 bet_chips = int(self.chip_entry.get())
                 self.user.bet(bet_chips)
                 self.game = TurtleKart()
-                self.total_chips_text.configure(text=f"Fichas: {self.user.total_chips}")    # Após aposta, antes do resultado
+                self.update_chips()
                 self.game.config(self.text_colors, self.values)
                 self.game.play(user_bet=self.user_bet, chips=bet_chips, user=self.user)
-                self.total_chips_text.configure(text=f"Fichas: {self.user.total_chips}")    # Após resultado
+                self.update_chips()
             except ValueError as e:
-                self.withdraw()
                 no_chips_message = CTkMessagebox(
                     master=self, title="Valor insuficiente", message=f"Você não possui fichas o suficiente! Suas fichas {self.user.total_chips}", 
                     icon="warning", option_1="Adicionar mais fichas", option_2="Sair"
                 )
                 if no_chips_message.get() == "Sair":
                     self.quit()
+                self.withdraw()
                 chips_option = ChipsOptions()
                 chips_option.wait_window()
                 self.user.total_chips += chips_option.added_chips
+                self.update_chips()
                 self.deiconify()
         else:
             no_bet_color = CTkMessagebox(master=self, title="Erro", message="Por favor, escolha uma cor", option_1="Continuar")
@@ -128,9 +130,13 @@ class Machine(customtkinter.CTk):
             )
         self.destroy()
         self.game.screen.bye()
+        sys.exit()
 
     def show_value(self, text):
         self.color_entry.delete("1.0", customtkinter.END)
         self.color_entry.insert("1.0", text)
         self.user_bet = text
+
+    def update_chips(self):
+        self.total_chips_text.configure(text=f"Fichas: {self.user.total_chips}")
 
