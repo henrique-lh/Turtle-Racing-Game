@@ -94,8 +94,7 @@ class UI(customtkinter.CTkToplevel):
         super().__init__()
 
         self.geometry("1000x500")
-        # TODO: Change this later
-        self.title("Change later")
+        self.title("Kart")
 
         self.grid_rowconfigure(2, weight=1)
         self.grid_columnconfigure((0, 1, 2), weight=1)
