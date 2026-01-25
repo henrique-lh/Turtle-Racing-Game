@@ -65,9 +65,9 @@ class GamesScreen(customtkinter.CTk):
                 row += 1
 
     def choose_game(self, game_class):
-        self.selected_game = game_class
-        # Pequeno delay para permitir que a animação visual do botão ocorra
-        self.after(100, self._finish)
+        self.selected_game = game_class()
+        self.selected_game.config()
+        self.selected_game.play()
 
     def _finish(self):
         self.quit()  # Encerra o mainloop, devolvendo o controle para run_hub

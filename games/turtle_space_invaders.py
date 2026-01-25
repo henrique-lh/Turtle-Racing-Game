@@ -221,15 +221,13 @@ class SpaceInvaders(Game):
             self.check_collisions()
             self.update_aliens()
 
-            self.window.update()
-
             time_for_this_frame = time.time() - timer_this_frame
             if time_for_this_frame < TIME_FOR_1_FRAME:
                 time.sleep(TIME_FOR_1_FRAME - time_for_this_frame)
 
-        self.ui.show_game_over()
-        time.sleep(2)
+            self.window.update()
 
-        turtle.resetscreen()
-        self.window.clearscreen()
+        self.ui.show_game_over()
+
         self.window.bye()
+        turtle.bye()
