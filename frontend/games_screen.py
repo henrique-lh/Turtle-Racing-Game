@@ -7,15 +7,11 @@ customtkinter.set_appearance_mode("Dark")
 customtkinter.set_default_color_theme("green")
 
 
-def open_game(game_class):
-    game = game_class()
-    game.config()
-    game.play()
-
-
 class GamesScreen(customtkinter.CTk):
     def __init__(self):
         super().__init__()
+
+        self.selected_game = None
 
         self.geometry("700x450")
         self.title("Hub")
@@ -49,6 +45,12 @@ class GamesScreen(customtkinter.CTk):
         )
         self.exit_button.grid(row=1, column=0, padx=20, pady=20)
 
+    def choose_game(self, game_class):
+        self.withdraw()
+        self.selected_game = game_class
+        self.quit()
+        self.destroy()
+
     def list_games(self):
         row = 0
         column = 0
@@ -57,7 +59,7 @@ class GamesScreen(customtkinter.CTk):
             button = customtkinter.CTkButton(
                 master=self.scrollable_frame,
                 text=game_name,
-                command=lambda g=game_class: open_game(g),
+                command=lambda g=game_class: self.choose_game(g),
                 height=100,
                 font=("Hack Nerd Font", 17),
             )
@@ -67,3 +69,10 @@ class GamesScreen(customtkinter.CTk):
             if column > 1:
                 column = 0
                 row += 1
+
+
+def run_hub():
+    app = GamesScreen()
+    app.mainloop()
+    return app.selected_game
+
