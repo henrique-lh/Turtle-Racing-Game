@@ -1,106 +1,73 @@
 import customtkinter
-from frontend.components import ExitButton
-from frontend.register_screen import RegisterWindow
-from games import TurtleKart, SpaceInvaders
-from user.user_info import Player
 
+
+# Importações mantidas conforme seu exemplo
+# from frontend.components import ExitButton
+# from games import TurtleKart, SpaceInvaders
 
 class GamesScreen(customtkinter.CTk):
-
     def __init__(self):
         super().__init__()
 
-        self.geometry("700x350")
+        self.geometry("700x450")
         self.title("Hub")
 
-        self.grid_rowconfigure(1, weight=1)
+        # Configuração do Grid Principal (O frame de scroll ocupa o topo, Exit fica embaixo)
+        self.grid_rowconfigure(0, weight=1)  # Área dos jogos cresce
+        self.grid_rowconfigure(1, weight=0)  # Botão Exit fixo embaixo
         self.grid_columnconfigure(0, weight=1)
 
-        self.play_button = customtkinter.CTkButton(
-            master=self,
-            text="Play",
-            command=self.list_games,
-            font=customtkinter.CTkFont(size=17, family="Hack Nerd Font")
-        )
-        self.play_button.grid(row=0, column=0, padx=20, pady=10, sticky="w")
+        # 1. Container de Scroll para os Jogos
+        self.scrollable_frame = customtkinter.CTkScrollableFrame(self,
+                                                                 label_text="Escolha seu Jogo")
+        self.scrollable_frame.grid(row=0, column=0, padx=20, pady=(20, 10),
+                                   sticky="nsew")
 
-        self.exit_button = ExitButton(self)
-        self.exit_button.grid(row=0, column=0, padx=20, pady=10, sticky="e")
+        # Configura duas colunas dentro do frame de scroll para ficarem "lado a lado"
+        self.scrollable_frame.grid_columnconfigure((0, 1), weight=1)
 
+        # O seu dicionário de jogos
         self.games = {
-            "Turtle Racing Game": TurtleKart,
-            "Space Invaders": SpaceInvaders,
+            "Turtle Racing Game": "TurtleKart",  # Substitua pela classe real
+            "Space Invaders": "SpaceInvaders",  # Substitua pela classe real
+            "Game 3": "Exemplo3",
+            "Game 4": "Exemplo4",
+            "Game 5": "Exemplo5",
         }
 
-        self.player = Player()
+        # 2. Gerar os botões dinamicamente
+        self.list_games()
 
-        self.games_frame = None
-        self.register_user()
+        # 3. Botão de Exit (Sempre visível no rodapé)
+        # Utilizando o seu ExitButton customizado
+        self.exit_button = customtkinter.CTkButton(self, text="EXIT",
+                                                   command=self.destroy,
+                                                   fg_color="transparent",
+                                                   border_width=2)
+        # Se preferir usar sua classe: self.exit_button = ExitButton(self)
+        self.exit_button.grid(row=1, column=0, padx=20, pady=20)
 
     def list_games(self):
-        """
-        List all available games in a grid layout
-        """
+        row = 0
+        column = 0
 
-        if self.games_frame:
-            self.games_frame.destroy()
-
-        self.games_frame = customtkinter.CTkScrollableFrame(
-            master=self,
-            width=660,
-            height=250,
-            corner_radius=10
-        )
-        self.games_frame.grid(row=1, column=0, padx=20, pady=10, sticky="nsew")
-
-        columns = 2
-        for col in range(columns):
-            self.games_frame.grid_columnconfigure(col, weight=1)
-
-        for index, (game_name, game_class) in enumerate(self.games.items()):
-            row = index // columns
-            col = index % columns
-
-            button = self.create_game_button(
-                master=self.games_frame,
+        for game_name, game_class in self.games.items():
+            # Criamos o botão dentro do scrollable_frame
+            button = customtkinter.CTkButton(
+                master=self.scrollable_frame,
                 text=game_name,
-                command=lambda g=game_class: self.play(g)
+                command=lambda g=game_class: self.open_game(g),
+                height=100,  # Altura maior conforme seu mockup
+                font=("Hack Nerd Font", 17)
             )
-            button.grid(row=row, column=col, padx=15, pady=15, sticky="nsew")
+            button.grid(row=row, column=column, padx=10, pady=10, sticky="nsew")
 
-    @staticmethod
-    def create_game_button(master, text, command):
-        """
-        Create a custom button for each game in the list
-        """
+            # Lógica para alternar colunas (0 e 1)
+            column += 1
+            if column > 1:
+                column = 0
+                row += 1
 
-        return customtkinter.CTkButton(
-            master=master,
-            text=text,
-            compound="center",
-            command=command,
-            font=customtkinter.CTkFont(size=17, family="Hack Nerd Font"),
-            height=120,
-            fg_color="#1f2933",
-            hover_color="#374151",
-            corner_radius=15
-        )
-
-    @staticmethod
-    def play(game_class):
-        """
-        Starts a game
-        """
-        game = game_class()
-        game.config()
-        game.play()
-
-    def register_user(self):
-        """
-        Register a new player in the game
-        """
-        self.withdraw()
-        register = RegisterWindow()
-        register.wait_window()
-        self.player.set_nick_name(register.nick_name)
-        self.deiconify()
+    def open_game(self, game_class):
+        print(f"Iniciando: {game_class}")
+        # Aqui você instancia a classe do jogo: game_class()
