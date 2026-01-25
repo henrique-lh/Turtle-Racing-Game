@@ -228,4 +228,6 @@ class SpaceInvaders(Game):
                 time.sleep(TIME_FOR_1_FRAME - time_for_this_frame)
 
         self.ui.show_game_over()
-        self.window.mainloop()
+        time.sleep(2)
+        turtle.clearscreen()
+        self.window.bye()
