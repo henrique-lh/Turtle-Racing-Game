@@ -228,6 +228,7 @@ class SpaceInvaders(Game):
             self.window.update()
 
         self.ui.show_game_over()
+        self.window.update()
         time.sleep(2)
 
         try:
