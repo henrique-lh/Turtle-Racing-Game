@@ -29,7 +29,6 @@ class GamesScreen(customtkinter.CTk):
 
         self.scrollable_frame.grid_columnconfigure((0, 1), weight=1)
 
-        # Seus jogos
         self.games = {
             "Turtle Racing Game": TurtleKart,
             "Space Invaders": SpaceInvaders,
@@ -70,7 +69,7 @@ class GamesScreen(customtkinter.CTk):
         self.selected_game.play()
 
     def _finish(self):
-        self.quit()  # Encerra o mainloop, devolvendo o controle para run_hub
+        self.quit()
 
     def on_exit(self):
         self.selected_game = None
