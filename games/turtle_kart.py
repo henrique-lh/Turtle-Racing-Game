@@ -48,15 +48,18 @@ def should_race_continue(racer: Turtle, winner: str, user_choice: str) -> bool:
 
 
 class TurtleKart(Game):
-    def __init__(self, user_turtle_choice: str) -> None:
+    def __init__(self) -> None:
         super().__init__()
         self.path = os.path.join(
             os.path.dirname(os.path.realpath("Turtle-Racing-Game")), "assets"
         )
         self.racers = []
-        self.user_turtle_choice = user_turtle_choice
+        self.user_choice = ""
 
     def config(self):
+        ui = UI()
+        ui.wait_window()
+        self.user_choice = ui.user_choice
         self.window.setup(width=800, height=600)
         self.window.bgpic(os.path.join(self.path, "road.gif"))
 
@@ -76,7 +79,6 @@ class TurtleKart(Game):
                 is_on = should_race_continue(
                     racer=racer,
                     winner=racer.pencolor(),
-                    user_choice=self.user_turtle_choice,
                 )
                 if not is_on:
                     break
@@ -99,7 +101,7 @@ class UI(customtkinter.CTkToplevel):
         self.grid_rowconfigure(2, weight=1)
         self.grid_columnconfigure((0, 1, 2), weight=1)
 
-        self.user_bet = ""
+        self.user_choice = ""
 
         self.text_color_frame = customtkinter.CTkFrame(
             master=self, width=500, height=100, corner_radius=20
@@ -154,14 +156,6 @@ class UI(customtkinter.CTkToplevel):
         )
         self.button_frame.grid(row=2, column=1, padx=20, pady=20, stick="nsew")
 
-        self.play_button = customtkinter.CTkButton(
-            self.button_frame,
-            text="Play",
-            command=self.play,
-            font=customtkinter.CTkFont(size=17, family="Hack Nerd Font"),
-        )
-        self.play_button.place(rely=0.3, relx=0.1)
-
         self.quit_button = customtkinter.CTkButton(
             self.button_frame,
             text="Exit",
@@ -169,28 +163,15 @@ class UI(customtkinter.CTkToplevel):
             font=customtkinter.CTkFont(size=17, family="Hack Nerd Font"),
         )
         self.quit_button.place(rely=0.3, relx=0.7)
-        self.game = None
-
-    def play(self):
-        if self.user_bet:
-            self.game = TurtleKart(self.user_bet)
-            self.game.config()
-            self.game.play()
-        else:
-            no_bet_color = CTkMessagebox(
-                master=self,
-                title="Error",
-                message="Please, choose a color!",
-                option_1="Continue",
-            )
-            no_bet_color.wait_window()
 
     def exit(self):
-        if self.game is not None:
-            self.game.screen.bye()
         self.destroy()
 
     def insert_odd_value(self, text):
+        CTkMessagebox(
+            master=self, title="Confirm color choice",
+            message=f"", icon="warning", option_1="Confirm", option_2="Back"
+        )
         self.color_entry.delete("1.0", customtkinter.END)
         self.color_entry.insert("1.0", text)
-        self.user_bet = text
+        self.user_choice = text
