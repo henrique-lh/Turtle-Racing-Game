@@ -1,0 +1,17 @@
+[project]
+name = "turtle-racing-game"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ctkmessagebox>=2.7",
+    "customtkinter>=5.2.2",
+    "pytz>=2025.2",
+    "unidecode>=1.4.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.14.14",
+]

@@ -1,10 +1,10 @@
-from frontend import Machine
+from frontend.games_screen import GamesScreen
+
 
 def main():
-    machine = Machine()
+    machine = GamesScreen()
     machine.mainloop()
 
 
 if __name__ == "__main__":
     main()
-
