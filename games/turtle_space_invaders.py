@@ -205,33 +205,30 @@ class SpaceInvaders(Game):
         self.game_running = True
         self.game_timer = time.time()
 
-        try:
-            while self.game_running:
-                timer_this_frame = time.time()
+        while self.game_running:
+            timer_this_frame = time.time()
 
-                time_elapsed = time.time() - self.game_timer
-                self.ui.update_score(
-                    time_elapsed, self.score, self.left * 0.8, self.top * 0.8
-                )
+            time_elapsed = time.time() - self.game_timer
+            self.ui.update_score(
+                time_elapsed, self.score, self.left * 0.8, self.top * 0.8
+            )
 
-                self.cannon.update_position(
-                    self.left + self.gutter, self.right - self.gutter
-                )
+            self.cannon.update_position(
+                self.left + self.gutter, self.right - self.gutter
+            )
 
-                self.spawn_alien()
-                self.check_collisions()
-                self.update_aliens()
+            self.spawn_alien()
+            self.check_collisions()
+            self.update_aliens()
 
-                time_for_this_frame = time.time() - timer_this_frame
-                if time_for_this_frame < TIME_FOR_1_FRAME:
-                    time.sleep(TIME_FOR_1_FRAME - time_for_this_frame)
+            time_for_this_frame = time.time() - timer_this_frame
+            if time_for_this_frame < TIME_FOR_1_FRAME:
+                time.sleep(TIME_FOR_1_FRAME - time_for_this_frame)
 
-                self.window.update()
-        except turtle.Terminator:
-            self.game_running = False
-            return
+            self.window.update()
 
         self.ui.show_game_over()
+        time.sleep(2)
 
         try:
             self.window.bye()
