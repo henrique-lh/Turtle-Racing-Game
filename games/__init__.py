@@ -1,4 +1,4 @@
-from .turtle_kart import TurtleKart
-from .turtle_space_invaders import SpaceInvaders
+from .kart.game import TurtleKart
+from .space_invaders.game import SpaceInvaders
 
 __all__ = ["TurtleKart", "SpaceInvaders"]
